@@ -82,10 +82,10 @@ if (playerDirection === "up") {
 }
 
 
-for (let y = 0; y < canvas.height; y += 32) {
+/*for (let y = 0; y < canvas.height; y += 32) {
 
     for (let x = 0; x < canvas.width; x += 32) {
-
+*/
         ctx.drawImage(
             backgroundImage,
             0, 0,
