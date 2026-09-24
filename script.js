@@ -85,6 +85,13 @@ if (moveLeft) {
     playerX = playerX - 5;
     playerDirection = "left";
 }
+    if (moveUp) {
+        playerY = playerY - 5;
+    }
+
+    if (moveDown) {
+        playerY = playerY + 5;
+    }
     
    if (moveRight || moveLeft || moveUp || moveDown) {
 
