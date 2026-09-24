@@ -1,10 +1,7 @@
 ﻿body {
-	margin :0,
-	
-	display: flex;
-	justify: center;
-	align-item: center;
-	}
+    margin: 0;
+    overflow: hidden;
+}
 
 #gameCanvas {
     width: 100vw;
