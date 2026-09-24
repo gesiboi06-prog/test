@@ -1,4 +1,4 @@
-
+console.log("GAME JS STARTED");
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -59,7 +59,7 @@ function clearScreen() {
 
     ctx.drawImage(
         playerImage,
-        32, 0,
+        64, 0,
         32, 32,
         playerX,
         playerY,
