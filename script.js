@@ -19,6 +19,7 @@ let playerY = 150;
 let playerFrame = 0;
 let frameCounter = 0;
 let playerDirection = "right";
+let playerDirection = "down";
 
 
 
@@ -58,10 +59,23 @@ function clearScreen() {
     if (!playerImage.complete) {
         return;
     }
+       let sourceY = 0;
+
+if (playerDirection === "left") {
+    sourceY = 32;
+}
+
+if (playerDirection === "right") {
+    sourceY = 64;
+}
+
+if (playerDirection === "up") {
+    sourceY = 96;
+}
 
     ctx.drawImage(
         playerImage,
-        playerFrame * 32, 0,
+        playerFrame * 32, sourceY,
         32, 32,
         playerX,
         playerY,
