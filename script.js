@@ -93,7 +93,7 @@ function updateGame() {
 
     frameCounter = frameCounter + 1;
     if (frameCounter >= 10) {
-    playerFrame = playerFrame + 1;
+    playerFrame = (playerFrame + 1) % 3;
     frameCounter = 0;
 }
 }
