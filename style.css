@@ -9,15 +9,16 @@
     display: block;
 }
 
-
 #controls {
-    width: 300px;
-    margin: 20px auto;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
     text-align: center;
 }
 
 #controls button {
-    width: 80px;
+    width: 70px;
     height: 60px;
     font-size: 30px;
     margin: 3px;
