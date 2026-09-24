@@ -115,3 +115,13 @@ function gameLoop() {
 playerImage.onload = function() {
     gameLoop();
 };
+
+// PREVENT MOBILE ZOOM ON CONTROLS
+
+document.querySelectorAll("#controls button").forEach(function(button) {
+
+    button.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+    }, { passive: false });
+
+});
