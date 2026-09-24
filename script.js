@@ -222,8 +222,8 @@ playerImage.onload = function() {
 // PREVENT MOBILE ZOOM
 // ========================
 
-document
-    .querySelectorAll("#controls button")
+
+    document.querySelectorAll("#controls button")
     .forEach(function(button) {
 
         button.addEventListener(
