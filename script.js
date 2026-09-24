@@ -96,7 +96,7 @@ if (playerDirection === "up") {
 
     }
 
-}
+
        
     ctx.drawImage(
         playerImage,
