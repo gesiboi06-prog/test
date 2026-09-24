@@ -18,7 +18,7 @@ let playerX = 100;
 let playerY = 150;
 
 
-console.log(playerImage);
+
 
 
 // ========================
@@ -49,19 +49,20 @@ function clearScreen() {
 // DRAW PLAYER
 // ========================
 
-function drawPlayer() {
+
+
+   function drawPlayer() {
+
+    if (!playerImage.complete) {
+        return;
+    }
 
     ctx.drawImage(
         playerImage,
-
-        // Sprite sheet source
         0, 0,
         32, 32,
-
-        // Position on canvas
-        playerX, playerY,
-
-        // Size on screen
+        playerX,
+        playerY,
         32, 32
     );
 }
