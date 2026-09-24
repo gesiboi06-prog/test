@@ -89,7 +89,7 @@ function updateGame() {
     if (moveDown) {
         playerY = playerY + 5;
     }
-playerFrame = playerFrame + 1;
+playerFrame = (playerFrame + 1) % 3;
 }
 
 
