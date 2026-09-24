@@ -94,7 +94,7 @@ if (playerDirection === "up") {
             32, 32
         );
 
-    }
+    
 
 
        
