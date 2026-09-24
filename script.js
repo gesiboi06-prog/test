@@ -29,9 +29,64 @@ let playerX = 100;
 let playerY = 150;
 let speed = 2;
 
+let cameraX = 0;
+let cameraY = 0;
+
 let playerFrame = 0;
 let frameCounter = 0;
 let playerDirection = "down";
+
+
+// ========================
+// MAP
+// ========================
+
+const map = [
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,3,3,3,0,0,0,0],
+    [0,0,3,0,3,0,0,0,0],
+    [0,0,3,3,3,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0]
+];
+
+
+// ========================
+// DRAW MAP
+// ========================
+
+function drawMap() {
+
+    for (let row = 0; row < map.length; row++) {
+
+        for (let col = 0; col < map[row].length; col++) {
+
+            let tile = map[row][col];
+
+            let tileX = tile % 9;
+            let tileY = Math.floor(tile / 9);
+
+            ctx.drawImage(
+                backgroundImage,
+                tileX * 64,
+                tileY * 64,
+                64,
+                64,
+                col * 64 - cameraX,
+                row * 64,
+                64,
+                64
+            );
+
+        }
+
+    }
+
+}
 
 
 // ========================
@@ -55,11 +110,12 @@ function clearScreen() {
         canvas.width,
         canvas.height
     );
+
 }
 
 
 // ========================
-// DRAW PLAYER + BACKGROUND
+// DRAW PLAYER
 // ========================
 
 function drawPlayer() {
@@ -86,30 +142,7 @@ function drawPlayer() {
     }
 
 
-    // ========================
-    // DRAW BACKGROUND TILES
-    // ========================
-
-    for (let y = 0; y < canvas.height; y += 32) {
-
-        for (let x = 0; x < canvas.width; x += 32) {
-
-            ctx.drawImage(
-                backgroundImage,
-                0, 0,
-                32, 32,
-                x, y,
-                32, 32
-            );
-
-        }
-
-    }
-
-
-    // ========================
     // DRAW PLAYER
-    // ========================
 
     ctx.drawImage(
         playerImage,
@@ -117,11 +150,12 @@ function drawPlayer() {
         sourceY,
         32,
         32,
-        playerX,
+        playerX - cameraX,
         playerY,
         32,
         32
     );
+
 }
 
 
@@ -130,6 +164,11 @@ function drawPlayer() {
 // ========================
 
 function updateGame() {
+
+
+    // ========================
+    // MOVEMENT
+    // ========================
 
     if (moveRight) {
 
@@ -160,6 +199,43 @@ function updateGame() {
         playerY = playerY + speed;
         playerDirection = "down";
 
+    }
+
+
+    // ========================
+    // PLAYER BOUNDARIES
+    // ========================
+
+    if (playerX < 0) {
+        playerX = 0;
+    }
+
+    if (playerX > 544) {
+        playerX = 544;
+    }
+	if (playerY < 0) {
+    playerY = 0;
+	}
+
+	if (playerY > 608) {
+    playerY = 608;
+	}
+
+
+    // ========================
+    // CAMERA
+    // ========================
+
+    cameraX = playerX - 180;
+
+
+    if (cameraX < 0) {
+        cameraX = 0;
+    }
+
+
+    if (cameraX > 216) {
+        cameraX = 216;
     }
 
 
@@ -200,6 +276,8 @@ function gameLoop() {
 
     updateGame();
 
+    drawMap();
+
     drawPlayer();
 
     requestAnimationFrame(gameLoop);
@@ -222,20 +300,17 @@ playerImage.onload = function() {
 // PREVENT MOBILE ZOOM
 // ========================
 
+document.querySelectorAll("#controls button")
+.forEach(function(button) {
 
-    document.querySelectorAll("#controls button")
-    .forEach(function(button) {
+    button.addEventListener(
+        "touchstart",
+        function(event) {
 
-        button.addEventListener(
-            "touchstart",
-            function(event) {
+            event.preventDefault();
 
-                event.preventDefault();
+        },
+        { passive: false }
+    );
 
-            },
-            { passive: false }
-        );
-
-    });
-
-
+});
