@@ -90,21 +90,21 @@ if (playerDirection === "up") {
 function updateGame() {
 
     if (moveRight) {
-    playerX = playerX + 5;
+    playerX = playerX + 2;
     playerDirection = "right";
 }
 
 if (moveLeft) {
-    playerX = playerX - 5;
+    playerX = playerX - 2;
     playerDirection = "left";
 }
    if (moveUp) {
-    playerY = playerY - 5;
+    playerY = playerY - 2;
     playerDirection = "up";
 }
 
 if (moveDown) {
-    playerY = playerY + 5;
+    playerY = playerY + 2;
     playerDirection = "down";
 }
     
