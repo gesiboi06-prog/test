@@ -6,6 +6,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     width: 100%;
     height: 100%;
 
@@ -23,12 +24,12 @@ body {
 /* GAME SCREEN */
 
 #gameCanvas {
-    width: 100vw;
-    height: 100vh;
+    width: min(100vw, 56.25vh);
+    height: min(100vh, 177.78vw);
+
+    aspect-ratio: 9 / 16;
 
     display: block;
-
-    object-fit: contain;
 }
 
 
