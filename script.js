@@ -56,7 +56,7 @@ function clearScreen() {
     if (!playerImage.complete) {
         return;
     }
-console.log("Image:", playerImage.width, playerImage.height);
+
     ctx.drawImage(
         playerImage,
         32, 0,
