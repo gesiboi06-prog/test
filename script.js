@@ -16,7 +16,7 @@ let playerX = 300;
 let playerY = 150;
 
 
-
+console.log(playerImage);
 
 
 // ========================
