@@ -59,7 +59,7 @@ function clearScreen() {
 
     ctx.drawImage(
         playerImage,
-        0, 0,
+        64, 0,
         32, 32,
         playerX,
         playerY,
