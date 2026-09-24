@@ -1,5 +1,4 @@
-
-
+```javascript
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -14,6 +13,7 @@ canvas.height = 640;
 const playerImage = new Image();
 playerImage.src = "image/pipo-nekonin022.png";
 
+
 // ========================
 // BACKGROUND TILE
 // ========================
@@ -21,15 +21,18 @@ playerImage.src = "image/pipo-nekonin022.png";
 const backgroundImage = new Image();
 backgroundImage.src = "image/forest_tile.png";
 
+
+// ========================
+// PLAYER SETTINGS
+// ========================
+
 let playerX = 100;
 let playerY = 150;
-let speed    = 2;
+let speed = 2;
 
 let playerFrame = 0;
 let frameCounter = 0;
 let playerDirection = "down";
-
-
 
 
 // ========================
@@ -57,54 +60,68 @@ function clearScreen() {
 
 
 // ========================
-// DRAW PLAYER
+// DRAW PLAYER + BACKGROUND
 // ========================
 
-
-
-   function drawPlayer() {
+function drawPlayer() {
 
     if (!playerImage.complete) {
         return;
     }
-       let sourceY = 0;
 
-if (playerDirection === "left") {
-    sourceY = 32;
-}
-
-if (playerDirection === "right") {
-    sourceY = 64;
-}
-
-if (playerDirection === "up") {
-    sourceY = 96;
-}
+    let sourceY = 0;
 
 
-/*for (let y = 0; y < canvas.height; y += 32) {
+    // PLAYER DIRECTION
 
-    for (let x = 0; x < canvas.width; x += 32) {
-*/
-        ctx.drawImage(
-            backgroundImage,
-            0, 0,
-            32, 32,
-            x, y,
-            32, 32
-        );
+    if (playerDirection === "left") {
+        sourceY = 32;
+    }
 
-    
+    if (playerDirection === "right") {
+        sourceY = 64;
+    }
+
+    if (playerDirection === "up") {
+        sourceY = 96;
+    }
 
 
-       
+    // ========================
+    // DRAW BACKGROUND TILES
+    // ========================
+
+    for (let y = 0; y < canvas.height; y += 32) {
+
+        for (let x = 0; x < canvas.width; x += 32) {
+
+            ctx.drawImage(
+                backgroundImage,
+                0, 0,
+                32, 32,
+                x, y,
+                32, 32
+            );
+
+        }
+
+    }
+
+
+    // ========================
+    // DRAW PLAYER
+    // ========================
+
     ctx.drawImage(
         playerImage,
-        playerFrame * 32, sourceY,
-        32, 32,
+        playerFrame * 32,
+        sourceY,
+        32,
+        32,
         playerX,
         playerY,
-        32, 32
+        32,
+        32
     );
 }
 
@@ -116,36 +133,62 @@ if (playerDirection === "up") {
 function updateGame() {
 
     if (moveRight) {
-    playerX = playerX + speed;
-    playerDirection = "right";
-}
 
-if (moveLeft) {
-    playerX = playerX - speed;
-    playerDirection = "left";
-}
-   if (moveUp) {
-    playerY = playerY - speed;
-    playerDirection = "up";
-}
+        playerX = playerX + speed;
+        playerDirection = "right";
 
-if (moveDown) {
-    playerY = playerY + speed;
-    playerDirection = "down";
-}
-    
-   if (moveRight || moveLeft || moveUp || moveDown) {
+    }
 
-    frameCounter = frameCounter + 1;
 
-    if (frameCounter >= 10) {
-        playerFrame = (playerFrame + 1) % 3;
-        frameCounter = 0;
+    if (moveLeft) {
+
+        playerX = playerX - speed;
+        playerDirection = "left";
+
+    }
+
+
+    if (moveUp) {
+
+        playerY = playerY - speed;
+        playerDirection = "up";
+
+    }
+
+
+    if (moveDown) {
+
+        playerY = playerY + speed;
+        playerDirection = "down";
+
+    }
+
+
+    // ========================
+    // WALKING ANIMATION
+    // ========================
+
+    if (
+        moveRight ||
+        moveLeft ||
+        moveUp ||
+        moveDown
+    ) {
+
+        frameCounter = frameCounter + 1;
+
+
+        if (frameCounter >= 10) {
+
+            playerFrame = (playerFrame + 1) % 3;
+
+            frameCounter = 0;
+
+        }
+
     }
 
 }
-}
-
 
 
 // ========================
@@ -161,21 +204,38 @@ function gameLoop() {
     drawPlayer();
 
     requestAnimationFrame(gameLoop);
+
 }
 
 
+// ========================
 // START GAME
+// ========================
 
 playerImage.onload = function() {
+
     gameLoop();
+
 };
 
-// PREVENT MOBILE ZOOM ON CONTROLS
 
-document.querySelectorAll("#controls button").forEach(function(button) {
+// ========================
+// PREVENT MOBILE ZOOM
+// ========================
 
-    button.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-    }, { passive: false });
+document
+    .querySelectorAll("#controls button")
+    .forEach(function(button) {
 
-});
+        button.addEventListener(
+            "touchstart",
+            function(event) {
+
+                event.preventDefault();
+
+            },
+            { passive: false }
+        );
+
+    });
+```
