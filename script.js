@@ -18,6 +18,7 @@ let playerX = 100;
 let playerY = 150;
 let playerFrame = 0;
 let frameCounter = 0;
+let playerDirection = "right";
 
 
 
