@@ -3,8 +3,8 @@ console.log("GAME JS STARTED");
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 800;
-canvas.height = 500;
+canvas.width = 360;
+canvas.height = 640;
 
 
 // ========================
