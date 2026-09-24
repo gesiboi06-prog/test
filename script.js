@@ -14,6 +14,13 @@ canvas.height = 640;
 const playerImage = new Image();
 playerImage.src = "image/pipo-nekonin022.png";
 
+// ========================
+// BACKGROUND TILE
+// ========================
+
+const backgroundImage = new Image();
+backgroundImage.src = "image/forest_tile.png";
+
 let playerX = 100;
 let playerY = 150;
 let speed    = 2;
@@ -74,6 +81,23 @@ if (playerDirection === "up") {
     sourceY = 96;
 }
 
+
+for (let y = 0; y < canvas.height; y += 32) {
+
+    for (let x = 0; x < canvas.width; x += 32) {
+
+        ctx.drawImage(
+            backgroundImage,
+            0, 0,
+            32, 32,
+            x, y,
+            32, 32
+        );
+
+    }
+
+}
+       
     ctx.drawImage(
         playerImage,
         playerFrame * 32, sourceY,
