@@ -76,6 +76,16 @@ function clearScreen() {
 
 function updateGame() {
 
+    if (moveRight) {
+    playerX = playerX + 5;
+    playerDirection = "right";
+}
+
+if (moveLeft) {
+    playerX = playerX - 5;
+    playerDirection = "left";
+}
+    
    if (moveRight || moveLeft || moveUp || moveDown) {
 
     frameCounter = frameCounter + 1;
