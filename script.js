@@ -14,7 +14,7 @@ canvas.height = 640;
 const playerImage = new Image();
 playerImage.src = "image/pipo-nekonin022.png";
 
-let playerX = 300;
+let playerX = 100;
 let playerY = 150;
 
 
