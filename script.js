@@ -16,7 +16,7 @@ playerImage.src = "image/pipo-nekonin022.png";
 
 let playerX = 100;
 let playerY = 150;
-
+let playerFrame = 0;
 
 
 
