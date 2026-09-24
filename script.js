@@ -75,26 +75,15 @@ function clearScreen() {
 
 function updateGame() {
 
-    if (moveRight) {
-        playerX = playerX + 5;
-    }
-
-    if (moveLeft) {
-        playerX = playerX - 5;
-    }
-
-    if (moveUp) {
-        playerY = playerY - 5;
-    }
-
-    if (moveDown) {
-        playerY = playerY + 5;
-    }
+   if (moveRight || moveLeft || moveUp || moveDown) {
 
     frameCounter = frameCounter + 1;
+
     if (frameCounter >= 10) {
-    playerFrame = (playerFrame + 1) % 3;
-    frameCounter = 0;
+        playerFrame = (playerFrame + 1) % 3;
+        frameCounter = 0;
+    }
+
 }
 }
 
