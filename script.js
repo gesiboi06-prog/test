@@ -16,6 +16,8 @@ playerImage.src = "image/pipo-nekonin022.png";
 
 let playerX = 100;
 let playerY = 150;
+let speed    = 2;
+
 let playerFrame = 0;
 let frameCounter = 0;
 let playerDirection = "down";
@@ -90,21 +92,21 @@ if (playerDirection === "up") {
 function updateGame() {
 
     if (moveRight) {
-    playerX = playerX + 2;
+    playerX = playerX + speed;
     playerDirection = "right";
 }
 
 if (moveLeft) {
-    playerX = playerX - 2;
+    playerX = playerX - speed;
     playerDirection = "left";
 }
    if (moveUp) {
-    playerY = playerY - 2;
+    playerY = playerY - speed;
     playerDirection = "up";
 }
 
 if (moveDown) {
-    playerY = playerY + 2;
+    playerY = playerY + speed;
     playerDirection = "down";
 }
     
