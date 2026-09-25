@@ -1,8 +1,8 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 360;
-canvas.height = 640;
+canvas.width = 240;
+canvas.height = 440;
 
 
 // ========================
@@ -14,11 +14,11 @@ playerImage.src = "image/pipo-nekonin022.png";
 
 
 // ========================
-// BACKGROUND TILE
+// BACKGROUND TILESET
 // ========================
 
 const backgroundImage = new Image();
-backgroundImage.src = "image/forest_tile.png";
+backgroundImage.src = "image/tile.png";
 
 
 // ========================
@@ -38,54 +38,168 @@ let playerDirection = "down";
 
 
 // ========================
-// MAP
+// GROUND MAP
 // ========================
 
-const map = [
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,3,3,3,0,0,0,0],
-    [0,0,3,0,3,0,0,0,0],
-    [0,0,3,3,3,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0]
+const groundMap = [
+    [71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71],
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,71],
+    [23,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,24,25,71],
+    [23,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,25,71],
+    [46,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,48,71],
+    [71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71],
+    [71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71],
+    [71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71]
 ];
 
 
 // ========================
-// DRAW MAP
+// OBJECT MAP
+// ========================
+// 0 = walang object
+// 6,7,8,9 = test objects
+
+const objectMap = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,6,7,8,9,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,96,94,28,29,30,31,32,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,51,52,53,54,55,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,75,76,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,10,0,11,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,10,0,11,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,4,89,90,91,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,27,112,113,114,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,35,36,37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+];
+
+
+// ========================
+// MAP SIZE
 // ========================
 
-function drawMap() {
+const mapWidth = groundMap[0].length * 32;
+const mapHeight = groundMap.length * 32;
 
-    for (let row = 0; row < map.length; row++) {
 
-        for (let col = 0; col < map[row].length; col++) {
+// ========================
+// DRAW GROUND
+// ========================
 
-            let tile = map[row][col];
+function drawGround() {
 
-            let tileX = tile % 9;
-            let tileY = Math.floor(tile / 9);
+    for (let row = 0; row < groundMap.length; row++) {
+
+        for (let col = 0; col < groundMap[row].length; col++) {
+
+            let tile = groundMap[row][col];
+
+            const TILESET_COLS = 23;
+
+            let tileX = tile % TILESET_COLS;
+            let tileY = Math.floor(tile / TILESET_COLS);
 
             ctx.drawImage(
                 backgroundImage,
-                tileX * 64,
-                tileY * 64,
-                64,
-                64,
-                col * 64 - cameraX,
-                row * 64,
-                64,
-                64
+
+                // SOURCE
+                tileX * 32,
+                tileY * 32,
+                32,
+                32,
+
+                // DESTINATION
+                col * 32 - cameraX,
+                row * 32 - cameraY,
+                32,
+                32
             );
 
         }
-
     }
+}
 
+
+// ========================
+// DRAW OBJECTS
+// ========================
+
+function drawObjects() {
+
+    for (let row = 0; row < objectMap.length; row++) {
+
+        for (let col = 0; col < objectMap[row].length; col++) {
+
+            let object = objectMap[row][col];
+
+            // 0 = walang object
+            if (object === 0) {
+                continue;
+            }
+
+            // ========================
+            // OBJECT TILE POSITION
+            // ========================
+
+            const TILESET_COLS = 23;
+
+            let tileX = object % TILESET_COLS;
+            let tileY = Math.floor(object / TILESET_COLS);
+
+            // ========================
+            // DRAW OBJECT FROM TILESET
+            // ========================
+
+            ctx.drawImage(
+
+                backgroundImage,
+
+                // SOURCE
+                tileX * 32,
+                tileY * 32,
+                32,
+                32,
+
+                // DESTINATION
+                col * 32 - cameraX,
+                row * 32 - cameraY,
+                32,
+                32
+            );
+
+        }
+    }
 }
 
 
@@ -110,7 +224,6 @@ function clearScreen() {
         canvas.width,
         canvas.height
     );
-
 }
 
 
@@ -126,9 +239,6 @@ function drawPlayer() {
 
     let sourceY = 0;
 
-
-    // PLAYER DIRECTION
-
     if (playerDirection === "left") {
         sourceY = 32;
     }
@@ -141,21 +251,18 @@ function drawPlayer() {
         sourceY = 96;
     }
 
-
-    // DRAW PLAYER
-
     ctx.drawImage(
         playerImage,
         playerFrame * 32,
         sourceY,
         32,
         32,
+
         playerX - cameraX,
-        playerY,
+        playerY - cameraY,
         32,
         32
     );
-
 }
 
 
@@ -165,10 +272,7 @@ function drawPlayer() {
 
 function updateGame() {
 
-
-    // ========================
     // MOVEMENT
-    // ========================
 
     if (moveRight) {
 
@@ -177,7 +281,6 @@ function updateGame() {
 
     }
 
-
     if (moveLeft) {
 
         playerX = playerX - speed;
@@ -185,14 +288,12 @@ function updateGame() {
 
     }
 
-
     if (moveUp) {
 
         playerY = playerY - speed;
         playerDirection = "up";
 
     }
-
 
     if (moveDown) {
 
@@ -202,46 +303,54 @@ function updateGame() {
     }
 
 
-    // ========================
     // PLAYER BOUNDARIES
-    // ========================
 
     if (playerX < 0) {
         playerX = 0;
     }
 
-    if (playerX > 544) {
-        playerX = 544;
+    if (playerX > mapWidth - 32) {
+        playerX = mapWidth - 32;
     }
-	if (playerY < 0) {
-    playerY = 0;
-	}
 
-	if (playerY > 608) {
-    playerY = 608;
-	}
+    if (playerY < 0) {
+        playerY = 0;
+    }
+
+    if (playerY > mapHeight - 32) {
+        playerY = mapHeight - 32;
+    }
 
 
-    // ========================
     // CAMERA
-    // ========================
 
-    cameraX = playerX - 180;
-
+    cameraX = playerX - canvas.width / 2 + 16;
+    cameraY = playerY - canvas.height / 2 + 16;
 
     if (cameraX < 0) {
         cameraX = 0;
     }
 
+    if (cameraY < 0) {
+        cameraY = 0;
+    }
 
-    if (cameraX > 216) {
-        cameraX = 216;
+    if (cameraX > mapWidth - canvas.width) {
+        cameraX = Math.max(
+            0,
+            mapWidth - canvas.width
+        );
+    }
+
+    if (cameraY > mapHeight - canvas.height) {
+        cameraY = Math.max(
+            0,
+            mapHeight - canvas.height
+        );
     }
 
 
-    // ========================
     // WALKING ANIMATION
-    // ========================
 
     if (
         moveRight ||
@@ -252,17 +361,15 @@ function updateGame() {
 
         frameCounter = frameCounter + 1;
 
-
         if (frameCounter >= 10) {
 
-            playerFrame = (playerFrame + 1) % 3;
+            playerFrame =
+                (playerFrame + 1) % 3;
 
             frameCounter = 0;
 
         }
-
     }
-
 }
 
 
@@ -276,12 +383,16 @@ function gameLoop() {
 
     updateGame();
 
-    drawMap();
+    // 1. GROUND
+    drawGround();
 
+    // 2. OBJECTS
+    drawObjects();
+
+    // 3. PLAYER
     drawPlayer();
 
     requestAnimationFrame(gameLoop);
-
 }
 
 
