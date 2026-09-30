@@ -10,7 +10,7 @@ canvas.height = 440;
 // ========================
 
 const playerImage = new Image();
-playerImage.src = "image/pipo-nekonin022.png";
+playerImage.src = "image/pipo-nekonin001.png";
 
 
 // ========================
